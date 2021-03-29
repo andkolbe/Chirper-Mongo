@@ -16,7 +16,7 @@ const ChirpSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, // the id on the user
         ref: 'User'
     }
-}, { timestamps: true }); // createdAt
+}, { timestamps: true }); // creates a createdAt and updatedAt timestamp to the document in the db
 
 // create the model and export it 
 

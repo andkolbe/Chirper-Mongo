@@ -1,17 +1,20 @@
 import { Router } from 'express';
-
+import Chirp from '../../db/models/Chirp';
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req: any, res) => {
     try {
-        res.render('home')
+        const chirps = await Chirp.find().lean() // use find() to get all chirps
+        res.render('home', {
+            name: req.user.firstName,
+            chirps 
+        })
+        
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: 'WHYYYYYYY', error: error.message });
+        res.render('error/500') // can't use json object because we have no front end
     }
 })
-
-
 
 export default router;
