@@ -1,9 +1,7 @@
 import { Router } from 'express';
-import Chirp from '../../db/models/Chirps';
+import Chirp from '../../db/models/Chirp';
 
 const router = Router();
-
-// mongoose has built in methods. find, create, remove
 
 router.get('/', async (req, res) => {
     try {

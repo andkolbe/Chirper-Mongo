@@ -1,23 +1,35 @@
+import config from './config';
 import express from 'express';
 import exphbs from 'express-handlebars';
 import morgan from 'morgan';
 import passport from 'passport';
+import path from 'path';
 import session from 'express-session';
 import routes from './routes';
 import connectDB from './db';
+import './middlewares/passport-strategies';
 
 const app = express();
 
 connectDB();
+
 
 // Handlebars
 // defaultLayout: we have a layout that wraps all of our views. We wany ours to be called main.hbs
 // extname: changes file extention from .handlebars to .hbs
 app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' })) 
 app.set('view engine', '.hbs')
+// Set 'views' directory for any views being rendered res.render()
+app.set('views', path.join(__dirname, 'views'));
 
+app.use(session({ // this needs to go above the passport middleware
+    secret: config.session.secret, // the secret can be anything you want
+    resave: false, // false = we don't want to save a session if nothing is modified
+    saveUninitialized: false, // false = don't create a session unless something is stored     
+}));
 app.use(morgan('dev'));
 app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
