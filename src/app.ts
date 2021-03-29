@@ -1,23 +1,27 @@
 import express from 'express';
-import * as session from 'express-session';
+import exphbs from 'express-handlebars';
 import morgan from 'morgan';
 import passport from 'passport';
-import * as path from 'path';
+import session from 'express-session';
+import routes from './routes';
 import connectDB from './db';
 
 const app = express();
 
 connectDB();
 
+// Handlebars
+// defaultLayout: we have a layout that wraps all of our views. We wany ours to be called main.hbs
+// extname: changes file extention from .handlebars to .hbs
+app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' })) 
+app.set('view engine', '.hbs')
+
 app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-app.get('/', (req, res) => {
-    res.send('Hello')
-})
+app.use(routes);
 
 const port = process.env.PORT || 3000;
 // If there is an environment variable already provided for us, use that. Otherwise, default to 3000

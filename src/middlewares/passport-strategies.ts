@@ -1,5 +1,5 @@
-import * as passport from 'passport';
-import * as GoogleStrategy from 'passport-google-oauth20';
+import passport from 'passport';
+import GoogleStrategy from 'passport-google-oauth20';
 import * as mongoose from 'mongoose';
 import config from '../config';
 import User from '../db/models/Users';
