@@ -3,9 +3,10 @@
       "module": "commonjs", // specifies the module code generation method. Node uses commonjs
       "esModuleInterop": true,
       "target": "es6", // specifies the output language level
-      "moduleResolution": "node", // herlps the compliler figure out what an import refers to. The value nodew mimics the Node module resolution mechanism
+      "moduleResolution": "node", // helps the compliler figure out what an import refers to. The value nodew mimics the Node module resolution mechanism
       "sourceMap": true,
-      "outDir": "dist" // This is the location to output .js files after transpilation. In this tutorial you will save it as dist
+      "outDir": "./dist", // Where we want our compiled javascript to go
+      "rootDir": "./src" // Where our typescript files are stored
     },
     "lib": ["es2015"]
   }
