@@ -19,6 +19,21 @@ async (accessToken, refreshToken, profile, done) => { // use async await because
         googleId: profile.id,
         displayName: profile.displayName,
         firstName: profile.name.givenName,
-        lastName: profile.name.familyName
+        lastName: profile.name.familyName,
+        image: profile.photos[0].value
+    }
+
+    // store user in db
+    try {
+        // find a user where the googleId = profile.id
+        let user = await User.findOne({ googleId: profile.id })
+        if (user) {
+            done(null, user)
+        } else { // if there is no user, create one
+            user = await User.create(newUser);
+            done(null, user)
+        }
+    } catch (err) {
+        console.log(err);   
     }
 }))
