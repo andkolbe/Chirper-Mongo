@@ -1,7 +1,17 @@
 import { Router } from 'express';
 import Chirp from '../../db/models/Chirp';
+import { ensureAuth } from '../../middlewares/custom-middlewares';
 
 const router = Router();
+
+// this endpoint will render the chirps/add view
+router.get('/add', ensureAuth , async (req, res) => {
+    try {
+        res.render('chirps/add')
+    } catch (error) {
+        console.log(error);
+        res.render('error/500');
+}})
 
 router.get('/', async (req, res) => {
     try {
@@ -23,14 +33,15 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', ensureAuth, async (req: any, res) => {
     try {
         const chirpDTO = req.body;
-        const result = await Chirp.create(chirpDTO)
-        res.json({ result, msg: 'chirp created!' });
+        chirpDTO.user = req.user.id
+        await Chirp.create(chirpDTO);
+        res.redirect('/');
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: 'WHYYYYYYY', error: error.message });
+        res.render('error/500');
     }
 })
 

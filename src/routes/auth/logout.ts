@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { ensureAuth } from '../../middlewares/custom-middlewares';
 
-
 const router = Router();
 
 // you should only be able to go the logout route if you are logged in

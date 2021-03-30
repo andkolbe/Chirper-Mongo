@@ -5,26 +5,20 @@ import IUser from './interfaces';
 // a model wraps around a schema and provides us an interface by which we can communicate with a database collection for that document type
 
 const UserSchema = new Schema({
-    // all of these fields come back from google
-    googleId: {
-        type: String,
-        required: true,
-      },
-      displayName: {
-        type: String,
-        required: true,
-      },
-      firstName: {
-        type: String,
-        required: true,
-      },
-      lastName: {
-        type: String,
-        required: true,
-      },
-      image: {
-        type: String,
-      },
+  // all of these fields come back from google
+  googleId: {
+    type: String
+  },
+  facebookId: {
+    type: String
+  },
+  displayName: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+  },
 }, { timestamps: true }); // creates a createdAt and updatedAt timestamp to the document in the db
 
 // create the model and export it 

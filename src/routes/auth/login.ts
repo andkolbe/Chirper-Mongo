@@ -9,8 +9,7 @@ router.get('/', ensureGuest, (req, res) => {
         res.render('login')
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: 'WHYYYYYYY', error: error.message });
-    }
+        res.render('error/500'); }
 })
 
 export default router;

@@ -6,6 +6,10 @@ export default {
     mongoose: {
         uri: process.env.DB_URI
     },
+    facebook: {
+        id: process.env.FACEBOOK_APP_ID,
+        secret: process.env.FACEBOOK_APP_SECRET
+    },
     google: {
         id: process.env.GOOGLE_CLIENT_ID,
         secret: process.env.GOOGLE_CLIENT_SECRET
