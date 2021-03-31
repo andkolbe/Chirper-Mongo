@@ -3,10 +3,9 @@ import { model, Schema } from 'mongoose';
 // a model wraps around a schema and provides us an interface by which we can communicate with a database collection for that document type
 
 const UserSchema = new Schema({
-  googleId: String,
-  facebookId: String,
   displayName: String,
   image: String,
+  email: String
 }, { timestamps: true }); // creates a createdAt and updatedAt timestamp to the document in the db
 
 // create the model and export it 
