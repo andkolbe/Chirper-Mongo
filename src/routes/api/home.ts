@@ -9,7 +9,7 @@ router.get('/', async (req: any, res) => {
             .populate('user') // this will bring in the data from the user model
             .sort({ createdAt: 'desc' })
             .lean() // use find() to get all chirps
-        res.render('home', {
+        res.render('chirps/home', {
             chirps
         })
 

@@ -17,9 +17,7 @@ passport.use(new GoogleStrategy.Strategy({
     callbackURL: '/auth/google/callback'
 },
     async (accessToken, refreshToken, profile, done) => { // use async await because we are dealing with mongoose
-        console.log(profile)
         const newUser = {
-
             displayName: profile.displayName,
             image: profile.photos[0].value,
             email: profile.emails[0].value
@@ -46,12 +44,10 @@ passport.use(new FacebookStrategy.Strategy({
     clientID: config.facebook.id as string,
     clientSecret: config.facebook.secret,
     callbackURL: '/auth/facebook/callback',
-    profileFields: ['id', 'displayName', 'emails', 'photos'] // must add these for facebook oauth 
+    profileFields: ['displayName', 'emails', 'photos'] // must add these for facebook oauth 
 },
     async (accessToken, refreshToken, profile, done) => {
-        console.log(profile)
         const newUser = {
-
             displayName: profile.displayName,
             image: profile.photos[0].value,
             email: profile.emails[0].value
@@ -80,9 +76,7 @@ passport.use(new TwitterStrategy.Strategy({
     includeEmail: true
 },
     async (accessToken, refreshToken, profile, done) => {
-        console.log(profile)
         const newUser = {
-
             displayName: profile.displayName,
             image: profile.photos[0].value,
             email: profile.emails[0].value

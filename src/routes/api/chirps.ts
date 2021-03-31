@@ -13,25 +13,16 @@ router.get('/add', ensureAuth , async (req, res) => {
         res.render('error/500');
 }})
 
-router.get('/', async (req, res) => {
+// this endpoint will render the chirps/edit/:id view
+router.get('/edit/:id', ensureAuth , async (req, res) => {
     try {
-        const chirps = await Chirp.find() // use find() to get all chirps
-        res.json(chirps);
+        const chirp = await Chirp.findOne({ _id: req.params.id }).lean();
+        if (!chirp) res.render('error/404'); // if that chirp doesn't exist, render the error page
+        res.render('chirps/edit', { chirp })
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: 'WHYYYYYYY', error: error.message });
-    }
-})
-
-router.get('/:id', async (req, res) => {
-    try {
-        const chirp = await Chirp.findOne({ _id: req.params.id }) // use findOne() to get one chirp
-        res.json(chirp);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'WHYYYYYYY', error: error.message });
-    }
-})
+        res.render('error/500');
+}})
 
 router.post('/', ensureAuth, async (req: any, res) => {
     try {
@@ -45,24 +36,29 @@ router.post('/', ensureAuth, async (req: any, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', ensureAuth, async (req, res) => {
+    const chirpDTO = req.body;
     try {
-        const editedChirp = req.body;
-        const result = await Chirp.findOneAndUpdate({ _id: req.params.id }, editedChirp);
-        res.json({ result, msg: 'chirp updated!' });
+        let chirp = await Chirp.findById(req.params.id).lean();
+        if (!chirp) res.render('error/404'); // if that chirp doesn't exist, render the error page
+        chirp = await Chirp.findOneAndUpdate({ _id: req.params.id}, chirpDTO, {
+            new: true, // will create a new chirp if it doesn't already exist
+            runValidators: true // checks if mongoose fields are valid
+        })
+        res.redirect('/dashboard')
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: 'FFFFFFFFFF', error: error.message })
+        res.render('error/500');
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuth, async (req, res) => {
     try {
         const result = await Chirp.remove({ _id: req.params.id })
-        res.json({ result, msg: 'chirp deleted!' });
+        res.redirect('/dashboard')
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: 'this sucks', error: error.message })
+        res.render('error/500');
     }
 })
 

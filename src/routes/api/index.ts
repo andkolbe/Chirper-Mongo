@@ -6,7 +6,7 @@ import homeRouter from './home';
 const router = Router();
 
 router.use('/', homeRouter)
-router.use('/chirps', chirpsRouter); // 
+router.use('/chirps', chirpsRouter);  
 router.use('/dashboard', dashboardRouter); 
 
 export default router;
