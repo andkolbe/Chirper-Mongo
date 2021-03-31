@@ -19,8 +19,6 @@ passport.use(new GoogleStrategy.Strategy({
         const newUser = {
             googleId: profile.id,
             displayName: profile.displayName,
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
             image: profile.photos[0].value
         }
 
@@ -55,7 +53,7 @@ passport.use(new FacebookStrategy.Strategy({
         // store user in db
         try {
             // find a user where the googleId = profile.id
-            let user = await User.findOne({ googleId: profile.id })
+            let user = await User.findOne({ facebookId: profile.id })
             if (user) {
                 done(null, user)
             } else { // if there is no user, create one

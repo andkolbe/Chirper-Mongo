@@ -1,15 +1,17 @@
 import { Router } from 'express';
 import Chirp from '../../db/models/Chirp';
+import { ensureAuth } from '../../middlewares/custom-middlewares';
 
 const router = Router();
 
-router.get('/', async (req: any, res) => {
+router.get('/', ensureAuth ,async (req: any, res) => {
     try {
-        const chirps = await Chirp.find()
+        const chirps = await Chirp.find({ user: req.user.id })
             .populate('user') // this will bring in the data from the user model
             .sort({ createdAt: 'desc' })
             .lean() // use find() to get all chirps
-        res.render('home', {
+        res.render('dashboard', {
+            name: req.user.displayName,
             chirps
         })
 

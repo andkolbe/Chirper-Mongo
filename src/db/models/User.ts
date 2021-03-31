@@ -1,24 +1,12 @@
 import { model, Schema } from 'mongoose';
-import IUser from './interfaces';
-
 // The Schema defines the structure of the documents that we are later going to store inside a collection
 // a model wraps around a schema and provides us an interface by which we can communicate with a database collection for that document type
 
 const UserSchema = new Schema({
-  // all of these fields come back from google
-  googleId: {
-    type: String
-  },
-  facebookId: {
-    type: String
-  },
-  displayName: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
+  googleId: String,
+  facebookId: String,
+  displayName: String,
+  image: String,
 }, { timestamps: true }); // creates a createdAt and updatedAt timestamp to the document in the db
 
 // create the model and export it 
