@@ -24,7 +24,8 @@
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
-    "passport-twitter": "^1.0.4"
+    "passport-twitter": "^1.0.4",
+    "redis": "^3.1.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
@@ -36,6 +37,7 @@
     "@types/passport-facebook": "^2.1.10",
     "@types/passport-google-oauth20": "^2.0.7",
     "@types/passport-twitter": "^1.0.36",
+    "@types/redis": "^2.8.28",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",

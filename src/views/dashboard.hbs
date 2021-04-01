@@ -1,4 +1,5 @@
-<h3>Welcome {{name}}</h3>
+<h3>Welcome, {{name}}!</h3>
+{{#if chirps}}
 {{#each chirps}}
 <div class='card my-2 shadow'>
     <a href='/chirps/{{_id}}'></a>
@@ -20,3 +21,6 @@
     </div>
 </div>
 {{/each}}
+{{else}}
+<p>You have not written any chirps!</p>
+{{/if}}

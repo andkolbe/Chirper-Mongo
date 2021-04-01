@@ -16,7 +16,8 @@ router.get('/add', ensureAuth , async (req, res) => {
 // this endpoint will render the chirps/edit/:id view
 router.get('/edit/:id', ensureAuth , async (req, res) => {
     try {
-        const chirp = await Chirp.findOne({ _id: req.params.id }).lean();
+        const chirp = await Chirp.findOne({ _id: req.params.id }).lean(); // use lean with GET requests
+        // lean is good to use when you execute a query and want to get the results quickly without modifying them
         if (!chirp) res.render('error/404'); // if that chirp doesn't exist, render the error page
         res.render('chirps/edit', { chirp })
     } catch (error) {
@@ -42,7 +43,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
         let chirp = await Chirp.findById(req.params.id).lean();
         if (!chirp) res.render('error/404'); // if that chirp doesn't exist, render the error page
         chirp = await Chirp.findOneAndUpdate({ _id: req.params.id}, chirpDTO, {
-            new: true, // will create a new chirp if it doesn't already exist
+            new: true, // returns the new modified chirp instead of the original
             runValidators: true // checks if mongoose fields are valid
         })
         res.redirect('/dashboard')
@@ -54,7 +55,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
 
 router.delete('/:id', ensureAuth, async (req, res) => {
     try {
-        const result = await Chirp.remove({ _id: req.params.id })
+        await Chirp.remove({ _id: req.params.id })
         res.redirect('/dashboard')
     } catch (error) {
         console.log(error);
@@ -62,6 +63,16 @@ router.delete('/:id', ensureAuth, async (req, res) => {
     }
 })
 
-
-
 export default router;
+
+/*
+Three ways to execute a mongoDB query
+
+query.exec((err, result) => console.log(result))
+
+query.then(result => console.log(result))
+.then behind the scenes also calls .exec and causes the query to be executed
+
+const result = await query;
+async/await
+*/

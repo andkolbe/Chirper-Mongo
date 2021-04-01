@@ -1,7 +1,7 @@
 import config from './config';
 import express from 'express';
 import exphbs from 'express-handlebars';
-const methodOverride = require('method-override');
+import methodOverride from 'method-override';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
@@ -32,19 +32,16 @@ app.use(session({ // this needs to go above the passport middleware
     store: MongoStore.create({ mongoUrl: config.mongoose.uri }) // connects to the db to be able store user sessions in Mongo Atlas
 }));
 
-
 app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true })); // to accept form data
+app.use(express.static('public')); // defines which folder we want to use as static
+app.use(express.urlencoded({ extended: false })); // to accept form data
+app.use(express.json()); 
 // Method override
-// THIS MUST GO ABOVE routes
+// THIS MUST GO ABOVE routesa
 app.use(methodOverride('_method'));
 app.use(routes);
-
-
-
 
 const port = process.env.PORT || 3000;
 // If there is an environment variable already provided for us, use that. Otherwise, default to 3000
