@@ -15,3 +15,14 @@ export const ensureGuest = (req, res, next) => {
         return next();
     }
 }
+
+import clearHash from './caching-middleware'
+export const cleanCache = async (req, res, next) => {
+    try {
+        await next();
+        //@ts-ignore
+        clearHash(req.user.id);
+    } catch (error) {
+        console.log(error)
+    }
+}

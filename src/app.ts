@@ -11,6 +11,7 @@ import routes from './routes';
 import connectDB from './db';
 import { formatDate } from './helpers/hbs';
 import './middlewares/passport-strategies';
+import './middlewares/caching-middleware';
 
 const app = express();
 

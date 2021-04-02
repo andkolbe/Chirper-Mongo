@@ -1,20 +1,22 @@
 import { Router } from 'express';
 import Chirp from '../../db/models/Chirp';
-import { ensureAuth } from '../../middlewares/custom-middlewares';
+import { ensureAuth, cleanCache } from '../../middlewares/custom-middlewares';
+
 
 const router = Router();
 
 // this endpoint will render the chirps/add view
-router.get('/add', ensureAuth , async (req, res) => {
+router.get('/add', ensureAuth, async (req, res) => {
     try {
         res.render('chirps/add')
     } catch (error) {
         console.log(error);
         res.render('error/500');
-}})
+    }
+})
 
 // this endpoint will render the chirps/edit/:id view
-router.get('/edit/:id', ensureAuth , async (req, res) => {
+router.get('/edit/:id', ensureAuth, async (req, res) => {
     try {
         const chirp = await Chirp.findOne({ _id: req.params.id }).lean(); // use lean with GET requests
         // lean is good to use when you execute a query and want to get the results quickly without modifying them
@@ -23,14 +25,14 @@ router.get('/edit/:id', ensureAuth , async (req, res) => {
     } catch (error) {
         console.log(error);
         res.render('error/500');
-}})
+    }})
 
-router.post('/', ensureAuth, async (req: any, res) => {
+router.post('/', ensureAuth, cleanCache, async (req: any, res) => {
     try {
         const chirpDTO = req.body;
         chirpDTO.user = req.user.id
         await Chirp.create(chirpDTO);
-        res.redirect('/');
+        res.redirect('/dashboard');
     } catch (error) {
         console.log(error);
         res.render('error/500');
@@ -42,7 +44,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
     try {
         let chirp = await Chirp.findById(req.params.id).lean();
         if (!chirp) res.render('error/404'); // if that chirp doesn't exist, render the error page
-        chirp = await Chirp.findOneAndUpdate({ _id: req.params.id}, chirpDTO, {
+        chirp = await Chirp.findOneAndUpdate({ _id: req.params.id }, chirpDTO, {
             new: true, // returns the new modified chirp instead of the original
             runValidators: true // checks if mongoose fields are valid
         })
@@ -55,7 +57,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
 
 router.delete('/:id', ensureAuth, async (req, res) => {
     try {
-        await Chirp.remove({ _id: req.params.id })
+        await Chirp.deleteOne({ _id: req.params.id })
         res.redirect('/dashboard')
     } catch (error) {
         console.log(error);
