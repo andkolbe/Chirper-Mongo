@@ -1,6 +1,7 @@
-import { Router } from 'express';
-import Chirp from '../../db/models/Chirp';
-import { ensureAuth } from '../../middlewares/custom-middlewares';
+export { }
+const { Router } = require('express');
+const Chirp = require('../../db/models/Chirp');
+const { ensureAuth } = require('../../middlewares/custom-middlewares');
 
 const router = Router();
 
@@ -12,7 +13,7 @@ router.get('/', ensureAuth, async (req: any, res) => {
             .lean() // writing lean after populate means lean will apply to both find and populate
             //@ts-ignore
             .cache({ key: req.user.id })
-            
+
         res.render('dashboard', {
             name: req.user.displayName,
             chirps
@@ -23,7 +24,7 @@ router.get('/', ensureAuth, async (req: any, res) => {
     }
 })
 
-export default router;
+module.exports = router;
 
 // ROUTE WITH REDIS
 // router.get('/', ensureAuth, async (req: any, res) => {
@@ -34,7 +35,7 @@ export default router;
 //         const client = redis.createClient(redisURL);
 //         const util = require('util'); // this is a standard library that is included in node. Contains the promisify function
 //         client.get = util.promisify(client.get) // promisify takes any function that accepts a callback as the last argument, and makes it instead return a promise
-        
+
 //         // Do we have any cached data in redis related to this query?
 //         const cachedChirps = await client.get(req.user.id); // can use await because we promisified the callback
 
@@ -46,7 +47,7 @@ export default router;
 //                 chirps: (JSON.parse(cachedChirps))
 //             });
 //         }
-        
+
 //         // if no, we need to respond to request and update our cache to store the data
 
 //         const chirps = await Chirp.find({ user: req.user.id })

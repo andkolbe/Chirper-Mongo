@@ -1,5 +1,6 @@
-import { Router } from 'express';
-import { ensureGuest } from '../../middlewares/custom-middlewares';
+export {}
+const { Router } = require('express');
+const { ensureGuest } = require('../../middlewares/custom-middlewares');
 
 const router = Router();
 
@@ -12,4 +13,4 @@ router.get('/', ensureGuest, (req, res) => {
         res.render('error/500'); }
 })
 
-export default router;
+module.exports = router;

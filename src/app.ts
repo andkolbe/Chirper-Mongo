@@ -1,17 +1,21 @@
-import config from './config';
-import express from 'express';
-import exphbs from 'express-handlebars';
-import methodOverride from 'method-override';
-import morgan from 'morgan';
-import passport from 'passport';
-import path from 'path';
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
-import routes from './routes';
-import connectDB from './db';
-import { formatDate } from './helpers/hbs';
-import './middlewares/passport-strategies';
-import './middlewares/caching-middleware';
+export {}
+const config =  require('./config');
+const express = require('express');
+const exphbs = require('express-handlebars');
+const methodOverride = require('method-override');
+const morgan = require('morgan');
+const passport = require('passport');
+const path = require('path');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const routes = require('./routes');
+const connectDB = require('./db');
+const { formatDate } = require('./helpers/hbs');
+const _handlebars = require('handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+
+require('./middlewares/passport-strategies');
+require('./middlewares/caching-middleware');
 
 const app = express();
 
@@ -20,7 +24,12 @@ connectDB();
 // Handlebars
 // defaultLayout: we have a layout that wraps all of our views. We wany ours to be called main.hbs
 // extname: changes file extention from .handlebars to .hbs
-app.engine('.hbs', exphbs({ helpers: { formatDate }, defaultLayout: 'main', extname: '.hbs' })) 
+app.engine('.hbs', exphbs({ 
+    helpers: { formatDate }, 
+    defaultLayout: 'main', 
+    extname: '.hbs',
+    handlebars: allowInsecurePrototypeAccess(_handlebars)
+})) 
 app.set('view engine', '.hbs')
 // Set 'views' directory for any views being rendered res.render()
 app.set('views', path.join(__dirname, 'views'));

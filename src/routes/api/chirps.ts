@@ -1,6 +1,7 @@
-import { Router } from 'express';
-import Chirp from '../../db/models/Chirp';
-import { ensureAuth, cleanCache } from '../../middlewares/custom-middlewares';
+export {}
+const { Router } = require('express');
+const Chirp = require('../../db/models/Chirp');
+const { cleanCache , ensureAuth } = require('../../middlewares/custom-middlewares');
 
 
 const router = Router();
@@ -65,7 +66,7 @@ router.delete('/:id', ensureAuth, async (req, res) => {
     }
 })
 
-export default router;
+module.exports =  router;
 
 /*
 Three ways to execute a mongoDB query

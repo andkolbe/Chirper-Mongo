@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
-import config from '../config';
+export {}
+const mongoose = require('mongoose');
+const config = require('../config');
 
 // mongoose returns a promise
 const connectDB = async () => {
@@ -17,4 +18,4 @@ const connectDB = async () => {
     }
 }
 
-export default connectDB;
+module.exports = connectDB;

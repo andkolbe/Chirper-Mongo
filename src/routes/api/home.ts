@@ -1,5 +1,6 @@
-import { Router } from 'express';
-import Chirp from '../../db/models/Chirp';
+export {}
+const { Router } =  require('express');
+const Chirp =  require('../../db/models/Chirp');
 
 const router = Router();
 
@@ -19,4 +20,4 @@ router.get('/', async (req: any, res) => {
     }
 })
 
-export default router;
+module.exports =  router;

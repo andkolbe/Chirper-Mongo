@@ -1,5 +1,6 @@
-import { Router } from 'express';
-import { ensureAuth } from '../../middlewares/custom-middlewares';
+export {}
+const { Router } = require('express');
+const { ensureAuth } = require ('../../middlewares/custom-middlewares');
 
 const router = Router();
 
@@ -10,4 +11,4 @@ router.get('/', ensureAuth, (req, res) => {
     });
   });
 
-export default router;
+module.exports = router;

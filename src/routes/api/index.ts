@@ -1,7 +1,8 @@
-import { Router } from 'express';
-import chirpsRouter from './chirps';
-import dashboardRouter from './dashboard';
-import homeRouter from './home';
+export {}
+const { Router } = require('express');
+const chirpsRouter = require('./chirps');
+const dashboardRouter = require('./dashboard');
+const homeRouter = require('./home');
 
 const router = Router();
 
@@ -9,4 +10,4 @@ router.use('/', homeRouter)
 router.use('/chirps', chirpsRouter);  
 router.use('/dashboard', dashboardRouter); 
 
-export default router;
+module.exports = router;

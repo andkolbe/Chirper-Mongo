@@ -1,8 +1,8 @@
-import * as dotenv from 'dotenv';
+const dotenv =  require('dotenv');
 
 dotenv.config();
 
-export default {
+module.exports = {
     mongoose: {
         uri: process.env.DB_URI
     },
@@ -28,4 +28,3 @@ export default {
     
 }
 
-export const { NODE_ENV = 'development' } = process.env;

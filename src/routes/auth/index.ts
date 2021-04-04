@@ -1,9 +1,10 @@
-import { Router } from 'express';
-import facebookRouter from './facebook';
-import googleRouter from './google';
-import loginRouter from './login';
-import logoutRouter from './logout';
-import twitterRouter from './twitter';
+export {}
+const { Router } = require('express');
+const facebookRouter = require('./facebook');
+const googleRouter = require('./google');
+const loginRouter = require('./login');
+const logoutRouter = require('./logout');
+const twitterRouter = require('./twitter');
 
 const router = Router();
 
@@ -13,4 +14,4 @@ router.use('/login', loginRouter);
 router.use('/logout', logoutRouter);
 router.use('/twitter', twitterRouter);
 
-export default router;
+module.exports = router;

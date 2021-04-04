@@ -1,9 +1,10 @@
-import passport from 'passport';
-import FacebookStrategy from 'passport-facebook';
-import GoogleStrategy from 'passport-google-oauth20';
-import TwitterStrategy from 'passport-twitter';
-import config from '../config';
-import User from '../db/models/User';
+export {}
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook');
+const GoogleStrategy = require('passport-google-oauth20');
+const TwitterStrategy = require('passport-twitter');
+const config = require('../config');
+const User = require('../db/models/User');
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((id, done) => {
