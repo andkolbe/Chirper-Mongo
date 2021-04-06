@@ -18,3 +18,7 @@ test('We can launch a browser', async () => {
 
     expect(text).toEqual('Login');
 });
+
+// Chromium runs in an entirely different environment than Node. 
+// Puppeteer takes the code that we wrote and serializes it into text. That text then gets communicated from our NodeJS runtime to the Chromium browser
+// It then gets parsed back into Javascript code and evaluated inside the browser
