@@ -6,10 +6,10 @@
             <img class='rounded-circle me-3' src="{{user.image}}" alt="">
             <h5 class="card-title">{{user.displayName}}</h5>
         </div>
-        <p clase="card-text">{{content}}</p>
-        <div class="d-flex align-items-center justify-content-between">
-            <h6 class="card-text">Location: {{location}}</h6>
-        <small class="card-text text-secondary">{{formatDate createdAt 'h:mm a - MMMM Do YYYY'}}</small>
+        <h6 clase="card-text">{{content}}</h6>
+        <div class="d-flex align-items-center justify-content-between mt-4">
+            <p class="card-text">Location: {{location}}</p>
+            <small class="card-text text-secondary">{{formatDate createdAt 'h:mm a - MMMM Do YYYY'}}</small>
         </div>
     </div>
 </div>
