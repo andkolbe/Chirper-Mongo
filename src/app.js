@@ -1,4 +1,3 @@
-export {}
 const config =  require('./config');
 const express = require('express');
 const exphbs = require('express-handlebars');
@@ -39,7 +38,13 @@ app.use(session({ // this needs to go above the passport middleware
     secret: config.session.secret, // the secret can be anything you want
     resave: false, // false = we don't want to save a session if nothing is modified
     saveUninitialized: false, // false = don't create a session unless something is stored     
-    store: MongoStore.create({ mongoUrl: config.mongoose.uri }) // connects to the db to be able store user sessions in Mongo Atlas
+    rolling: true, // true = even tho we imposed a 30 min timemout, you can extend the timeout if you are still active within the session
+    store: MongoStore.create({ mongoUrl: config.mongoose.uri }), // creates a mongo store that is able store user sessions in Mongo Atlas
+    cookie: {
+        maxAge: 1000 * 60 * 30, // 30 min
+        sameSite: 'lax',
+        secure: false
+    }
 }));
 
 app.use(morgan('dev'));
@@ -49,7 +54,7 @@ app.use(express.static('public')); // defines which folder we want to use as sta
 app.use(express.urlencoded({ extended: false })); // to accept form data
 app.use(express.json()); 
 // Method override
-// THIS MUST GO ABOVE routesa
+// THIS MUST GO ABOVE routes
 app.use(methodOverride('_method'));
 app.use(routes);
 

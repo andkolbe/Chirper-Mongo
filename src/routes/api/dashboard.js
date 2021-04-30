@@ -1,11 +1,10 @@
-export { }
 const { Router } = require('express');
 const Chirp = require('../../db/models/Chirp');
 const { ensureAuth } = require('../../middlewares/custom-middlewares');
 
 const router = Router();
 
-router.get('/', ensureAuth, async (req: any, res) => {
+router.get('/', ensureAuth, async (req, res) => {
     try {
         const chirps = await Chirp.find({ user: req.user.id })
             .populate('user') // this will bring in the data from the user model. populate and lean work well together

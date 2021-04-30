@@ -1,4 +1,3 @@
-export {}
 const { Router } = require('express');
 const facebookRouter = require('./facebook');
 const googleRouter = require('./google');

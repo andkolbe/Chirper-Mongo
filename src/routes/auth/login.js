@@ -1,4 +1,3 @@
-export {}
 const { Router } = require('express');
 const { ensureGuest } = require('../../middlewares/custom-middlewares');
 

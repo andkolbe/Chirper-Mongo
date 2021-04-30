@@ -11,7 +11,7 @@ client.hget = util.promisify(client.hget) // promisify takes any function that a
 const exec = mongoose.Query.prototype.exec; // stores a reference to the original exec function
 
 // storing information in redis is expensive, so we only want to cache certain queries in our project
-mongoose.Query.prototype.cache = function (options: any = {}) { // don't use an arrow function because we don't want to mess with the value of this   
+mongoose.Query.prototype.cache = function (options) { // don't use an arrow function because we don't want to mess with the value of this   
         this.useCache = true;
 
         // any property passed into options will be the hash key
@@ -72,7 +72,7 @@ mongoose.Query.prototype.exec = async function () { // don't use an arrow functi
 }
 
 module.exports =  {
-    clearHash(hashKey: string | number) {
+    clearHash(hashKey) {
         client.del(JSON.stringify(hashKey))
     }
 }

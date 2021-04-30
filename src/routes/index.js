@@ -1,4 +1,3 @@
-export {}
 const { Router } = require('express');
 const apiRouter = require('./api');
 const authRouter = require('./auth');

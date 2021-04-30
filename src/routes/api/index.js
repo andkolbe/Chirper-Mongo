@@ -1,4 +1,3 @@
-export {}
 const { Router } = require('express');
 const chirpsRouter = require('./chirps');
 const dashboardRouter = require('./dashboard');

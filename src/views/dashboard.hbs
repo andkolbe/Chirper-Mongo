@@ -1,4 +1,4 @@
-<h3>Welcome, {{name}}!</h3>
+<h3 class='text-primary'>Welcome, {{name}}!</h3>
 {{#if chirps}}
 {{#each chirps}}
 <div class='card my-2 shadow'>
@@ -8,13 +8,15 @@
         <h6 class='card-text'>Location: {{location}}</h6>
         <div class='d-flex justify-content-between'>
             <small class='card-text text-secondary'>{{formatDate createdAt 'h:mm a - MMMM Do YYYY'}}</small>
-            <a href='/chirps/edit/{{_id}}'>Edit Chirp</a>
         </div>
-        <form method='POST' action='/chirps/{{_id}}?_method=DELETE'  id='delete-form'>
-            <button type='submit' class='btn text-danger'>
-                Delete
-            </button>
-        </form>
+        <div class='d-flex align-items-center justify-content-between'>
+            <a class='text-decoration-none ' href='/chirps/edit/{{_id}}'>Edit Chirp</a>
+            <form method='POST' action='/chirps/{{_id}}?_method=DELETE' id='delete-form'>
+                <button type='submit' class='btn text-danger font-weight-bold'>
+                    Delete
+                </button>
+            </form>
+        </div>
 
     </div>
 </div>

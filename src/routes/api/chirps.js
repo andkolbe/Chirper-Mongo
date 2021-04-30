@@ -1,4 +1,3 @@
-export {}
 const { Router } = require('express');
 const Chirp = require('../../db/models/Chirp');
 const { cleanCache , ensureAuth } = require('../../middlewares/custom-middlewares');
@@ -28,7 +27,7 @@ router.get('/edit/:id', ensureAuth, async (req, res) => {
         res.render('error/500');
     }})
 
-router.post('/', ensureAuth, cleanCache, async (req: any, res) => {
+router.post('/', ensureAuth, cleanCache, async (req, res) => {
     try {
         const chirpDTO = req.body;
         chirpDTO.user = req.user.id

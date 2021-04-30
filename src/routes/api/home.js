@@ -1,10 +1,9 @@
-export {}
 const { Router } =  require('express');
 const Chirp =  require('../../db/models/Chirp');
 
 const router = Router();
 
-router.get('/', async (req: any, res) => {
+router.get('/', async (req, res) => {
     try {
         const chirps = await Chirp.find()
             .populate('user') // this will bring in the data from the user model

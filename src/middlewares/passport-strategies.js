@@ -1,4 +1,3 @@
-export {}
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const GoogleStrategy = require('passport-google-oauth20');
@@ -42,7 +41,7 @@ passport.use(new GoogleStrategy.Strategy({
 
 // Facebook Strategy
 passport.use(new FacebookStrategy.Strategy({
-    clientID: config.facebook.id as string,
+    clientID: config.facebook.id,
     clientSecret: config.facebook.secret,
     callbackURL: '/auth/facebook/callback',
     profileFields: ['displayName', 'emails', 'photos'] // must add these for facebook oauth 
@@ -53,6 +52,7 @@ passport.use(new FacebookStrategy.Strategy({
             image: profile.photos[0].value,
             email: profile.emails[0].value
         }
+
         // store user in db
         try {
             // if the email on this account already exists in the db, don't create a new user
@@ -82,6 +82,7 @@ passport.use(new TwitterStrategy.Strategy({
             image: profile.photos[0].value,
             email: profile.emails[0].value
         }
+        
         // store user in db
         try {
             // if the email on this account already exists in the db, don't create a new user
