@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "nodemon src/app.js",
     "test": "jest",
+    "start": "node src/app.js",
     "deploy": "git push heroku main"
   },
   "keywords": [],
