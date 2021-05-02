@@ -18,6 +18,10 @@ module.exports = {
         id: process.env.GOOGLE_CLIENT_ID,
         secret: process.env.GOOGLE_CLIENT_SECRET
     },
+    redis: {
+        tls_url: process.env.REDIS_TLS_URL,
+        url: process.env.REDIS_URL
+    },
     session: {
         secret: process.env.SESSION_SECRET
     },

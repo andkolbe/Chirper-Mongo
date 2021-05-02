@@ -1,10 +1,11 @@
+const config = require('../config');
 
 // use redis caching so we only have to call mongodb once to get this data and store it on our computer until the user leaves the session
 const mongoose = require('mongoose');
 const redis = require('redis');
 const util = require('util'); // this is a standard library that is included in node. Contains the promisify function
 
-const redisURL = 'redis://127.0.0.1:6379';
+const redisURL = config.redis.url;
 const client = redis.createClient(redisURL);
 client.hget = util.promisify(client.hget) // promisify takes any function that accepts a callback as the last argument, and makes it instead return a promise
 
